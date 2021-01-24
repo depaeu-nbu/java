@@ -14,6 +14,7 @@ public class Main {
 				Scanner in = new Scanner(System.in);
 				String ID = in.nextLine();
 				System.out.println(getBirthDate(ID));
+				
 			}
 		}
 
