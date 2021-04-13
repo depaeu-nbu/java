@@ -1,0 +1,169 @@
+package pta09;
+
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+
+public class MenuServer {
+
+	public static void main(String[] args) {
+		try
+	      {
+	         // establish server socket
+	         ServerSocket s = new ServerSocket(8189);
+
+	         // wait for client connection
+	         Socket incoming = s.accept();
+	         try
+	         {
+	            InputStream inStream = incoming.getInputStream();
+	            OutputStream outStream = incoming.getOutputStream();
+	            
+	            Scanner in = new Scanner(inStream);
+	            PrintWriter out = new PrintWriter(outStream, true);
+
+	            menu(in, out, incoming);
+	         }
+	         finally
+	         {
+	            incoming.close();
+	         }
+	      }
+	      catch (IOException e)
+	      {
+	         e.printStackTrace();
+	      }
+	}
+	public static void menu(Scanner in,PrintWriter out ,Socket incoming) {
+	
+		while(in.hasNextLine()){//201521123013
+			String line=in.nextLine();
+			if(line.trim().equals("1")){
+				Date time=new Date();
+				String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+							.format(Calendar.getInstance().getTime());
+				out.println(date);
+			}
+			if(line.trim().equals("2")){
+				out.println("IP:"+incoming.getInetAddress()+"port:"+incoming.getPort());
+			}
+			if(line.trim().equals("3")){
+				
+			}
+			if(line.trim().equals("4")){
+				break;
+			}
+		}
+	}
+	/*public static void findFile(String path,String filename,PrintWriter out){	
+		try {
+			File pathname=new File("D:\\java¨¨¨ª?t");
+			String filename="Learn1";
+			String[] filenames=pathname.list();
+		
+			for (int i = 0; i < filenames.length; i++) {
+				File file=new File(pathname.getPath(), filenames[i]);
+				if(filename.equals(filenames[i])){
+					out.println(file.getAbsolutePath());
+				}
+				if(file.isDirectory()){	
+					findFile(file.getCanonicalPath(),filename, out);
+				}		
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	*/	
+}
+
+//public class MenuServer {
+//
+//	public static void main(String[] args) {
+//		try
+//	      {  //201521123013
+//	         int i = 1;
+//	         ServerSocket s = new ServerSocket(8189);
+//
+//	         while (true)
+//	         {  
+//	            Socket incoming = s.accept();
+//	            System.out.println("Spawning " + i);
+//	            Runnable r = new ThreadedEchoHandler(incoming);
+//	            Thread t = new Thread(r);
+//	            t.start();
+//	            i++;
+//	         }
+//	      }
+//	      catch (IOException e)
+//	      {  
+//	         e.printStackTrace();
+//	      }
+//	}	
+//}
+//class ThreadedEchoHandler1 implements Runnable
+//{ 
+//   /**
+//      Constructs a handler.
+//      @param i the incoming socket
+//      @param c the counter for the handlers (used in prompts)
+//   */
+//   public ThreadedEchoHandler1(Socket i)
+//   { 
+//      incoming = i; 
+//   }
+//
+//   public void run()
+//   {  
+//      try
+//      {  
+//         try
+//         {//201521123013
+//            InputStream inStream = incoming.getInputStream();
+//            OutputStream outStream = incoming.getOutputStream();
+//            
+//            Scanner in = new Scanner(inStream);         
+//            PrintWriter out = new PrintWriter(outStream, true);
+//            
+//            menu(in, out, incoming);
+//         }
+//         finally
+//         {
+//            incoming.close();
+//         }
+//      }
+//      catch (IOException e)
+//      {  
+//         e.printStackTrace();
+//      }
+//   }
+//   public static void menu(Scanner in,PrintWriter out ,Socket incoming) {
+//		while(in.hasNextLine()){
+//			String line=in.nextLine();
+//			if(line.trim().equals("1")){
+//				Date time=new Date();
+//				String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//							.format(Calendar.getInstance().getTime());
+//				out.println(date);
+//			}
+//			if(line.trim().equals("2")){
+//				out.println("IP:"+incoming.getInetAddress()+"port:"+incoming.getPort());
+//			}
+//			if(line.trim().equals("3")){
+//				
+//			}
+//			if(line.trim().equals("4")){
+//				break;
+//			}
+//		}
+//	}
+//   private Socket incoming;
+//}
